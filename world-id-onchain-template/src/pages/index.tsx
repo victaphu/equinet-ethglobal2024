@@ -1,14 +1,13 @@
 'use client'
 
-import abi from '@/abi/ContractAbi.json'
-import { IDKitWidget, ISuccessResult, useIDKit } from '@worldcoin/idkit'
+import { ISuccessResult, useIDKit } from '@worldcoin/idkit'
 import { useEffect, useState } from 'react'
 import Header from '@/components/header/header'
 import HorseCard from '@/components/horse/HorseCard'
 import { Grid } from '@mui/material'
 import horses from '@/lib/horses.json'
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+import theme from '../styles/theme';
 import useHorseFilters from '@/hooks/useHorseFilter'
 import { config } from '@/lib/config'
 import { IProvider } from '@web3auth/base'
