@@ -1,7 +1,12 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
+import { useConnect } from 'wagmi';
+import { config } from '@/lib/config';
 
 function Header() {
+  const c = useConnect({config: config})
+
+  console.log(c.connectors)
   return (
     <AppBar position="static" color="primary" sx={{ mb: 4 }}>
       <Toolbar>
@@ -12,7 +17,7 @@ function Header() {
           Equinet EthGlobal Hackathon
         </Typography>
         <Box>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={() => c.connect()}>Login</Button>
           <Button color="inherit">Register</Button>
         </Box>
       </Toolbar>
