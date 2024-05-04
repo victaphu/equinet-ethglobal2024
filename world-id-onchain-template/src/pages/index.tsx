@@ -13,6 +13,7 @@ import useHorseFilters from '@/hooks/useHorseFilter'
 import { config } from '@/lib/config'
 import { IProvider } from '@web3auth/base'
 import Web3 from "web3";
+import useAttestation from '@/hooks/useAttestations'
 
 const webAuth = config;
 
@@ -23,9 +24,9 @@ export default function Home() {
 	const { filteredHorses, applyFilters, resetFilters } = useHorseFilters(horses);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
-
 	const [address, setAddress] = useState("");
-
+	const { attestationStatus, isLoading } = useAttestation(address);
+  
 	const submitTx = async (proof: ISuccessResult) => {
 
 	}
@@ -78,14 +79,14 @@ export default function Home() {
 		<ThemeProvider theme={theme}>
 
 			<div className='App'>
-				<Header onConnect={login} address={address} disconnect={handleDisconnect}/>
+				<Header onConnect={login} address={address} disconnect={handleDisconnect} attestationStatus={attestationStatus} isLoading={isLoading}/>
 				{/* <ConnectKitButton/> */}
 				{/* <Filters onChange={applyFilters} onReset={resetFilters} /> */}
 
 				<Grid container justifyContent="center" spacing={2}>
 					{filteredHorses.map((horse: any) => (
 						<Grid item xs={12} sm={6} md={4} key={horse.id} display="flex" justifyContent="center">
-							<HorseCard horse={horse} />
+							<HorseCard horse={horse} purchaseEnabled={loggedIn} attestationStatus={attestationStatus} isLoading={isLoading}/>
 						</Grid>
 					))}
 				</Grid>

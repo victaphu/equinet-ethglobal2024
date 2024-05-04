@@ -1,16 +1,14 @@
 import React, { useMemo } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
-import useAttestation from '@/hooks/useAttestations';
 
-function Header({onConnect, address, disconnect}: any) {
-  const { attestationStatus, isLoading } = useAttestation(address);
-  console.log(attestationStatus, isLoading, attestationStatus.filter(e=> e === false));
+function Header({ onConnect, address, disconnect, attestationStatus, isLoading }: any) {
+
   const HeaderButton = useMemo(() => {
     if (address && address.length > 0) {
       return <><span className="text-sm">{address}</span><Button color="inherit" onClick={disconnect}>Disconnect</Button></>
     }
     else {
-      return <Button color="inherit" onClick={onConnect}>Connect</Button>; 
+      return <Button color="inherit" onClick={onConnect}>Connect</Button>;
     }
   }, [address]);
   return (
@@ -23,7 +21,7 @@ function Header({onConnect, address, disconnect}: any) {
           Equinet EthGlobal Hackathon
         </Typography>
         <Box>
-          {address && address.length > 0 && !isLoading && attestationStatus.filter(e=>e === false).length > 0 && <Button color="inherit">Not Compliant!</Button>}
+          {address && address.length > 0 && !isLoading && attestationStatus.filter((e: any) => e === false).length > 0 && <Button color="inherit" onClick={e=>window.open('http://localhost:3001')}><span className='text-sm bg-red-300 rounded-lg p-2'>Not Compliant!</span></Button>}
           {HeaderButton}
         </Box>
       </Toolbar>

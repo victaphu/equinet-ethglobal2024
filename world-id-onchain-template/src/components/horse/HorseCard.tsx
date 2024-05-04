@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, CardMedia, CardContent, Typography, CardActions, Button, Chip } from '@mui/material';
 
-function HorseCard({ horse }: any) {
+function HorseCard({ horse, purchaseEnabled, isLoading, attestationStatus }: any) {
+  const compliant = attestationStatus.filter((e: any) => e === false).length === 0;
   return (
     <Card sx={{
       maxWidth: 345,
@@ -45,7 +46,10 @@ function HorseCard({ horse }: any) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Buy Shares</Button>
+        {purchaseEnabled && !isLoading && compliant && <Button size="small">Buy Shares</Button>}
+        {purchaseEnabled && !isLoading && !compliant && <Button size="small" onClick={e=>window.open('http://localhost:3001')}><span className='text-sm bg-red-300 rounded-lg'>Complete Identity Attestation to Purchase</span></Button>}
+        {!purchaseEnabled && <Button size="small" disabled>Login to Purchase!</Button>}
+
       </CardActions>
     </Card>
   );
