@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
-import { useConnect } from 'wagmi';
-import { config } from '@/lib/config';
+import useAttestation from '@/hooks/useAttestations';
 
-function Header() {
-  const c = useConnect({config: config})
-
-  console.log(c.connectors)
+function Header({onConnect, address, disconnect}: any) {
+  const { attestationStatus, isLoading } = useAttestation(address);
+  console.log(attestationStatus, isLoading, attestationStatus.filter(e=> e === false));
+  const HeaderButton = useMemo(() => {
+    if (address && address.length > 0) {
+      return <><span className="text-sm">{address}</span><Button color="inherit" onClick={disconnect}>Disconnect</Button></>
+    }
+    else {
+      return <Button color="inherit" onClick={onConnect}>Connect</Button>; 
+    }
+  }, [address]);
   return (
     <AppBar position="static" color="primary" sx={{ mb: 4 }}>
       <Toolbar>
@@ -17,8 +23,8 @@ function Header() {
           Equinet EthGlobal Hackathon
         </Typography>
         <Box>
-          <Button color="inherit" onClick={() => c.connect()}>Login</Button>
-          <Button color="inherit">Register</Button>
+          {address && address.length > 0 && !isLoading && attestationStatus.filter(e=>e === false).length > 0 && <Button color="inherit">Not Compliant!</Button>}
+          {HeaderButton}
         </Box>
       </Toolbar>
     </AppBar>

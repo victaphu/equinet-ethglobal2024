@@ -21,19 +21,4 @@ import { baseSepolia } from '@wagmi/core/chains'
 
 export const chain: Chain = baseSepolia;
 
-export const config = createConfig(
-    getDefaultConfig({
-        chains: [chain],
-        transports: {
-            [chain.id]: fallback([
-                unstable_connector(injected),
-                http(chain.rpcUrls.default.http[0]),
-            ])
-        },
-        walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID!,
-        appName: "Equinet Ethglobal 2024",
-        connectors: [
-            Web3AuthConnectorInstance([chain]),
-        ]
-    }),
-)
+export const config = Web3AuthConnectorInstance;
