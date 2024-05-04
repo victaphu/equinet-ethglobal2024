@@ -3,12 +3,17 @@ pragma solidity 0.8.17;
 
 import "@onchain-id/solidity/contracts/Identity.sol";
 import "@onchain-id/solidity/contracts/ClaimIssuer.sol";
+import "./IWCAttestation.sol";
 
 contract WCClaimIssuer is IClaimIssuer, Identity {
     mapping (bytes => bool) public revokedClaims;
 
+    IWCAttestation public wcAttestation;
+
     // solhint-disable-next-line no-empty-blocks
-    constructor(address initialManagementKey) Identity(initialManagementKey, false) {}
+    constructor(address initialManagementKey, address _wcAttestation) Identity(initialManagementKey, false) {
+      wcAttestation = IWCAttestation(_wcAttestation);
+    }
 
     /**
      *  @dev See {IClaimIssuer-revokeClaimBySignature}.
