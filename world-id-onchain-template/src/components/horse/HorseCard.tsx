@@ -47,7 +47,7 @@ function HorseCard({ horse, purchaseEnabled, isLoading, attestationStatus }: any
       </CardContent>
       <CardActions>
         {purchaseEnabled && !isLoading && compliant && <Button size="small">Buy Shares</Button>}
-        {purchaseEnabled && !isLoading && !compliant && <Button size="small" onClick={e=>window.open('http://localhost:3001')}><span className='text-sm bg-red-300 rounded-lg'>Complete Identity Attestation to Purchase</span></Button>}
+        {purchaseEnabled && !isLoading && !compliant && <Button size="small" onClick={e=>window.open('https://equinet-attestations.netlify.app/')}><span className='text-sm bg-red-300 rounded-lg'>Complete Identity Attestation to Purchase</span></Button>}
         {!purchaseEnabled && <Button size="small" disabled>Login to Purchase!</Button>}
 
       </CardActions>

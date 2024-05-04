@@ -21,7 +21,7 @@ function Header({ onConnect, address, disconnect, attestationStatus, isLoading }
           Equinet EthGlobal Hackathon
         </Typography>
         <Box>
-          {address && address.length > 0 && !isLoading && attestationStatus.filter((e: any) => e === false).length > 0 && <Button color="inherit" onClick={e=>window.open('http://localhost:3001')}><span className='text-sm bg-red-300 rounded-lg p-2'>Not Compliant!</span></Button>}
+          {address && address.length > 0 && !isLoading && attestationStatus.filter((e: any) => e === false).length > 0 && <Button color="inherit" onClick={e=>window.open('https://equinet-attestations.netlify.app/')}><span className='text-sm bg-red-300 rounded-lg p-2'>Not Compliant!</span></Button>}
           {HeaderButton}
         </Box>
       </Toolbar>
